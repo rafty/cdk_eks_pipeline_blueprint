@@ -51,12 +51,12 @@ class CdkEksPipelineBlueprintStack(cdk.Stack):
             ),
         )
 
-        # ----------------------------------------
-        # VPC Stage
-        # ----------------------------------------
-        vpc_dev_stage = VpcStage(scope=self, construct_id='VpcDev')
-        pipeline.add_stage(vpc_dev_stage)
-        # TODO これをstageからappのstackに移動し、dev/stage/prodを作成する。
+        # # ----------------------------------------
+        # # VPC Stage
+        # # ----------------------------------------
+        # vpc_dev_stage = VpcStage(scope=self, construct_id='VpcDev')
+        # pipeline.add_stage(vpc_dev_stage)
+        # # TODO これをstageからappのstackに移動し、dev/stage/prodを作成する。
 
         # ----------------------------------------
         # EKS Cluster Stage

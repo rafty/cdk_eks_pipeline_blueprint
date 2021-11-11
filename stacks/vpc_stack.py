@@ -8,12 +8,13 @@ class Vpc(cdk.Stack):
             self,
             scope: cdk.Construct,
             construct_id: str,
+            env: cdk.Environment,
             **kwargs
     ) -> None:
 
         super().__init__(scope, construct_id, **kwargs)
 
-        self.vpc = aws_ec2.Vpc(
+        self._vpc = aws_ec2.Vpc(
             scope=self,
             id="VPC",
             max_azs=2,
@@ -42,20 +43,20 @@ class Vpc(cdk.Stack):
             scope=self,
             id='eks-cluster-vpc-id',
             export_name='eks-cluster-vpc-id',
-            value=self.vpc.vpc_id)
+            value=self._vpc.vpc_id)
 
     @property
-    def get_vpc(self):
-        return self.vpc
+    def vpc(self):
+        return self._vpc
 
     @property
-    def get_vpc_public_subnet_ids(self):
-        return self.vpc.select_subnets(
+    def vpc_public_subnet_ids(self):
+        return self._vpc.select_subnets(
             subnet_type=aws_ec2.SubnetType.PUBLIC
         ).subnet_ids
 
     @property
-    def get_vpc_private_subnet_ids(self):
-        return self.vpc.select_subnets(
+    def vpc_private_subnet_ids(self):
+        return self._vpc.select_subnets(
             subnet_type=aws_ec2.SubnetType.PRIVATE
         ).subnet_ids

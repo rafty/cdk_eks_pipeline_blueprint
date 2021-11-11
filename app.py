@@ -3,6 +3,8 @@ from aws_cdk import core as cdk
 from cdk_eks_pipeline_blueprint.cdk_eks_pipeline_blueprint_stack import CdkEksPipelineBlueprintStack
 from env import Env
 from stacks import vpc_stack
+from stacks.vpc_stack import Vpc
+
 
 app = cdk.App()
 env = Env()
@@ -16,6 +18,12 @@ env = Env()
 #     )
 # )
 
+vpc_stack = Vpc(scope=app,
+                construct_id='VpcAppStack',
+                env=cdk.Environment(
+                    account=env.account_id,
+                    region=env.region)
+                )
 
 CdkEksPipelineBlueprintStack(
     scope=app,
@@ -23,7 +31,8 @@ CdkEksPipelineBlueprintStack(
     env=cdk.Environment(
         account=env.account_id,
         region=env.region
-    )
+    ),
+    vpc=vpc_stack.vpc
 )
 
 app.synth()
