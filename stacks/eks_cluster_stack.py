@@ -10,10 +10,11 @@ class EksCluster(cdk.Stack):
                  scope: cdk.Construct,
                  construct_id: str,
                  # vpc: aws_ec2.Vpc,
+                 env: cdk.Environment,
                  **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        print(f'-----------EksCluster construct_id={construct_id}')
+        print(f'-----------EksCluster Stack construct_id={construct_id}')
 
         # Import our existing VPC whose name is EKSClusterStack/VPC
 
@@ -30,8 +31,11 @@ class EksCluster(cdk.Stack):
         vpc = aws_ec2.Vpc.from_lookup(
             self,
             'VPC',
+            region=env.region,
             # vpc_name='VPC')
             vpc_name='CdkEksPipelineBlueprintStack/VpcDev/VpcStage/VPC')
+
+        print(f'-----------EksCluster Stack from_lookup() construct_id={construct_id}')
 
         # vpc_id = cdk.Fn.import_value('eks-cluster-vpc-id')
         # # print(f'----------------vpc_id: {vpc_id}')
