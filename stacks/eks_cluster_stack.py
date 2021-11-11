@@ -2,6 +2,9 @@ from aws_cdk import core as cdk
 from aws_cdk import aws_iam
 from aws_cdk import aws_eks
 from aws_cdk import aws_ec2
+from env import Env
+
+environment = Env()
 
 
 class EksCluster(cdk.Stack):
@@ -10,7 +13,7 @@ class EksCluster(cdk.Stack):
                  scope: cdk.Construct,
                  construct_id: str,
                  # vpc: aws_ec2.Vpc,
-                 env: cdk.Environment,
+                 # env: cdk.Environment,
                  **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
@@ -31,7 +34,8 @@ class EksCluster(cdk.Stack):
         vpc = aws_ec2.Vpc.from_lookup(
             self,
             'VPC',
-            region=env.region,
+            # region=env.region,
+            region=environment.region,
             # vpc_name='VPC')
             vpc_name='CdkEksPipelineBlueprintStack/VpcDev/VpcStage/VPC')
 
