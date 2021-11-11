@@ -63,7 +63,8 @@ class EksCluster(cdk.Stack):
                 aws_iam.ServicePrincipal(service='arn:aws:iam::{}:root'.format(environment.account_id))),
             managed_policies=[
                 aws_iam.ManagedPolicy.from_aws_managed_policy_name(managed_policy_name='AdministratorAccess'),
-                aws_iam.ManagedPolicy.from_aws_managed_policy_name(managed_policy_name='AmazonEKSClusterPolicy')]
+                aws_iam.ManagedPolicy.from_aws_managed_policy_name(managed_policy_name='AmazonEKSClusterPolicy'),
+                aws_iam.ManagedPolicy.from_aws_managed_policy_name(managed_policy_name='AmazonEKSServicePolicy')]
         )
 
         # Creating Cluster with EKS
