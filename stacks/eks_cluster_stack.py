@@ -6,6 +6,31 @@ from environment import Environment
 
 environment = Environment()
 
+"""
+[Container] 2021/11/11 15:59:32 Running command cdk synth
+-----------MyAppStage construct_id=VpcDev
+-----------EksClusterStage construct_id=EksClusterDev
+-----------EksCluster Stack construct_id=EksClusterDevStage
+-----------EksCluster Stack from_lookup() construct_id=EksClusterDevStage
+-----------EksCluster Stack from_lookup() vpc.vpc_id=vpc-12345
+
+current credentials could not be used to assume 'arn:aws:iam::338456725408:role/cdk-hnb659fds-lookup-role-338456725408-ap-northeast-1', 
+but are for the right account. Proceeding anyway.
+
+-----------MyAppStage construct_id=VpcDev
+-----------EksClusterStage construct_id=EksClusterDev
+-----------EksCluster Stack construct_id=EksClusterDevStage
+-----------EksCluster Stack from_lookup() construct_id=EksClusterDevStage
+-----------EksCluster Stack from_lookup() vpc.vpc_id=vpc-12345
+[Error at /CdkEksPipelineBlueprintStack/EksClusterDev/EksClusterDevStage] You are not authorized to perform this operation.
+[Warning at /CdkEksPipelineBlueprintStack/EksClusterDev/EksClusterDevStage/EksCluster] Could not auto-tag private subnet p-12345 with "kubernetes.io/role/internal-elb=1", please remember to do this manually
+[Warning at /CdkEksPipelineBlueprintStack/EksClusterDev/EksClusterDevStage/EksCluster] Could not auto-tag private subnet p-67890 with "kubernetes.io/role/internal-elb=1", please remember to do this manually
+[Warning at /CdkEksPipelineBlueprintStack/EksClusterDev/EksClusterDevStage/EksCluster] Could not auto-tag public subnet s-12345 with "kubernetes.io/role/elb=1", please remember to do this manually
+[Warning at /CdkEksPipelineBlueprintStack/EksClusterDev/EksClusterDevStage/EksCluster] Could not auto-tag public subnet s-67890 with "kubernetes.io/role/elb=1", please remember to do this manually
+Found errors
+"""
+
+
 
 class EksCluster(cdk.Stack):
 
