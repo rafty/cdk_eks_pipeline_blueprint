@@ -40,6 +40,7 @@ class EksCluster(cdk.Stack):
             vpc_name='CdkEksPipelineBlueprintStack/VpcDev/VpcStage/VPC')
 
         print(f'-----------EksCluster Stack from_lookup() construct_id={construct_id}')
+        print(f'-----------EksCluster Stack from_lookup() vpc.vpc_id={vpc.vpc_id}')
 
         # vpc_id = cdk.Fn.import_value('eks-cluster-vpc-id')
         # # print(f'----------------vpc_id: {vpc_id}')
