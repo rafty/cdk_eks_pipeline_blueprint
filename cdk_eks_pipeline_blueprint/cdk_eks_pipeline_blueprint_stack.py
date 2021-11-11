@@ -5,6 +5,10 @@ from aws_cdk.pipelines import ShellStep
 from aws_cdk import aws_ec2
 from stages.vpc_stage import VpcStage
 from stages.eks_cluster_stage import EksClusterStage
+from env import Env
+
+
+environment = Env()
 
 
 class CdkEksPipelineBlueprintStack(cdk.Stack):
@@ -15,7 +19,7 @@ class CdkEksPipelineBlueprintStack(cdk.Stack):
                  scope: cdk.Construct,
                  construct_id: str,
                  # vpc: aws_ec2.Vpc,
-                 env: cdk.Environment,
+                 # env: cdk.Environment,
                  **kwargs) -> None:
 
         super().__init__(scope, construct_id, **kwargs)
@@ -65,6 +69,9 @@ class CdkEksPipelineBlueprintStack(cdk.Stack):
         eks_cluster_dev_stage = EksClusterStage(
             scope=self,
             construct_id='EksClusterDev',
-            env=env
+            env=cdk.Environment(
+                account=environment.account_id,
+                region=environment.region
+            ),
         )
         pipeline.add_stage(eks_cluster_dev_stage)

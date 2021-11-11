@@ -7,7 +7,7 @@ from stacks.vpc_stack import Vpc
 
 
 app = cdk.App()
-env = Env()
+environment = Env()
 
 # vpc_stack = vpc.Vpc(
 #     scope=app,
@@ -29,8 +29,8 @@ CdkEksPipelineBlueprintStack(
     scope=app,
     construct_id="CdkEksPipelineBlueprintStack",
     env=cdk.Environment(
-        account=env.account_id,
-        region=env.region
+        account=environment.account_id,
+        region=environment.region
     ),
     # vpc=vpc_stack.vpc
 )
