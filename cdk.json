@@ -13,6 +13,10 @@
     "@aws-cdk/aws-rds:lowercaseDbIdentifier": true,
     "@aws-cdk/aws-efs:defaultEncryptionAtRest": true,
     "@aws-cdk/aws-lambda:recognizeVersionProps": true,
-    "@aws-cdk/aws-cloudfront:defaultSecurityPolicyTLSv1.2_2021": true
+    "@aws-cdk/aws-cloudfront:defaultSecurityPolicyTLSv1.2_2021": true,
+    "@aws-cdk/core:newStyleStackSynthesis": true,
+    "repository-name": "rafty/cdk_eks_pipeline_blueprint",
+    "github-action": "arn:aws:codestar-connections:ap-northeast-1:338456725408:connection/f0adad55-8456-4682-8d27-3e8b4dfa618b",
+    "pipeline-name": "EksPipeline"
   }
 }
