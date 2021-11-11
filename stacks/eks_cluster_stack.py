@@ -2,9 +2,9 @@ from aws_cdk import core as cdk
 from aws_cdk import aws_iam
 from aws_cdk import aws_eks
 from aws_cdk import aws_ec2
-from env import Env
+from environment import Environment
 
-environment = Env()
+environment = Environment()
 
 
 class EksCluster(cdk.Stack):
@@ -47,11 +47,23 @@ class EksCluster(cdk.Stack):
         # print(f'----------------from_lookup - vpc.vpc_id: {vpc.vpc_id}')
 
         # Create owner role for EKS Cluster
-        owner_role = aws_iam.Role(
+        # owner_role = aws_iam.Role(
+        #     scope=self,
+        #     id='EksClusterOwnerRole',
+        #     role_name='EksClusterOwnerRole',
+        #     assumed_by=aws_iam.AccountRootPrincipal()
+        # )
+        # TODO error???
+        eks_cluster_admin_role = aws_iam.Role(
             scope=self,
-            id='EksClusterOwnerRole',
-            role_name='EksClusterOwnerRole',
-            assumed_by=aws_iam.AccountRootPrincipal()
+            id="EksClusterRoleAdmin",
+            role_name='EksClusterRoleAdmin',
+            assumed_by=aws_iam.CompositePrincipal(
+                aws_iam.ServicePrincipal(service='eks.amazonaws.com'),
+                aws_iam.ServicePrincipal(service='arn:aws:iam::{}:root'.format(environment.account_id))),
+            managed_policies=[
+                aws_iam.ManagedPolicy.from_aws_managed_policy_name(managed_policy_name='AdministratorAccess'),
+                aws_iam.ManagedPolicy.from_aws_managed_policy_name(managed_policy_name='AmazonEKSClusterPolicy')]
         )
 
         # Creating Cluster with EKS
@@ -69,7 +81,8 @@ class EksCluster(cdk.Stack):
                 aws_ec2.SubnetSelection(
                     subnet_type=aws_ec2.SubnetType.PRIVATE)
             ],
-            masters_role=owner_role,
+            # masters_role=owner_role,
+            masters_role=eks_cluster_admin_role,
             # default_capacity=2,
             # default_capacity_instance=aws_ec2.InstanceType.of(
             #     aws_ec2.InstanceClass.BURSTABLE2,

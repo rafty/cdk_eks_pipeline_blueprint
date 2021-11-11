@@ -1,7 +1,7 @@
 import os
 
 
-class Env:
+class Environment:
 
     def __init__(self):
         self._account_id = os.getenv('CDK_DEFAULT_ACCOUNT')

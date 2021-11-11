@@ -2,9 +2,9 @@ from aws_cdk import core as cdk
 # from stacks.vpc_stack import Vpc
 from stacks.eks_cluster_stack import EksCluster
 from aws_cdk import aws_ec2
-from env import Env
+from environment import Environment
 
-environment = Env()
+environment = Environment()
 
 
 class EksClusterStage(cdk.Stage):

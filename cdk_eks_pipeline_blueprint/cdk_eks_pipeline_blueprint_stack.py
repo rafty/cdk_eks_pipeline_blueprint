@@ -5,10 +5,10 @@ from aws_cdk.pipelines import ShellStep
 from aws_cdk import aws_ec2
 from stages.vpc_stage import VpcStage
 from stages.eks_cluster_stage import EksClusterStage
-from env import Env
+from environment import Environment
 
 
-environment = Env()
+environment = Environment()
 
 
 class CdkEksPipelineBlueprintStack(cdk.Stack):

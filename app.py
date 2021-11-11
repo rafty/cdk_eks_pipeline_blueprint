@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 from aws_cdk import core as cdk
 from cdk_eks_pipeline_blueprint.cdk_eks_pipeline_blueprint_stack import CdkEksPipelineBlueprintStack
-from env import Env
+from environment import Environment
 from stacks import vpc_stack
 from stacks.vpc_stack import Vpc
 
 
 app = cdk.App()
-environment = Env()
+environment = Environment()
 
 # vpc_stack = vpc.Vpc(
 #     scope=app,
