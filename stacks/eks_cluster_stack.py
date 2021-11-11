@@ -9,7 +9,7 @@ class EksCluster(cdk.Stack):
     def __init__(self,
                  scope: cdk.Construct,
                  construct_id: str,
-                 vpc: aws_ec2.Vpc,
+                 # vpc: aws_ec2.Vpc,
                  **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
