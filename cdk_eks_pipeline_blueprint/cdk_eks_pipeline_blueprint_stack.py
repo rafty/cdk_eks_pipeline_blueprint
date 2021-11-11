@@ -30,7 +30,7 @@ class CdkEksPipelineBlueprintStack(cdk.Stack):
         )
 
         # ----------------------------------------
-        # Source
+        # Pipeline
         # ----------------------------------------
         pipeline_name = self.node.try_get_context('pipeline-name')
 
@@ -50,10 +50,9 @@ class CdkEksPipelineBlueprintStack(cdk.Stack):
             ),
         )
 
-        vpc_dev_stage = VpcStage(scope=self,
-                                 construct_id='VpcDev',
-                                 # env=env
-                                 )
-
+        # ----------------------------------------
+        # VPC Stage
+        # ----------------------------------------
+        vpc_dev_stage = VpcStage(scope=self, construct_id='VpcDev')
         pipeline.add_stage(vpc_dev_stage)
 

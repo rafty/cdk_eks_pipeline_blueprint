@@ -37,8 +37,12 @@ class Vpc(cdk.Stack):
             nat_gateways=2,
         )
 
-        cdk.CfnOutput(self, "Output",
-                      value=self.vpc.vpc_id)
+        # EKS Stackへ渡すため
+        cdk.CfnOutput(
+            scope=self,
+            id='eks-cluster-vpc-id',
+            export_name='eks-cluster-vpc-id',
+            value=self.vpc.vpc_id)
 
     @property
     def get_vpc(self):
