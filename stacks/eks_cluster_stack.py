@@ -6,7 +6,11 @@ from aws_cdk import aws_ec2
 
 class EksCluster(cdk.Stack):
 
-    def __init__(self, scope: cdk.Construct, construct_id: str, **kwargs) -> None:
+    def __init__(self,
+                 scope: cdk.Construct,
+                 construct_id: str,
+                 vpc: aws_ec2.Vpc,
+                 **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
         # Import our existing VPC whose name is EKSClusterStack/VPC
@@ -26,10 +30,10 @@ class EksCluster(cdk.Stack):
         #     'VPC',
         #     vpc_name='CdkEksPipelineBlueprintStack/VpcDev/VpcStage/VPC')
 
-        vpc_id = cdk.Fn.import_value('eks-cluster-vpc-id')
-        # print(f'----------------vpc_id: {vpc_id}')
-        vpc = aws_ec2.Vpc.from_lookup(self, 'VPC', vpc_id=vpc_id)
-        print(f'----------------from_lookup - vpc.vpc_id: {vpc.vpc_id}')
+        # vpc_id = cdk.Fn.import_value('eks-cluster-vpc-id')
+        # # print(f'----------------vpc_id: {vpc_id}')
+        # vpc = aws_ec2.Vpc.from_lookup(self, 'VPC', vpc_id=vpc_id)
+        # print(f'----------------from_lookup - vpc.vpc_id: {vpc.vpc_id}')
 
         # Create owner role for EKS Cluster
         owner_role = aws_iam.Role(
