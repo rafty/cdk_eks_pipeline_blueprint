@@ -9,7 +9,7 @@ class Env:
 
     @property
     def account_id(self) -> str:
-        return self._id
+        return self._account_id
 
     @property
     def region(self) -> str:
