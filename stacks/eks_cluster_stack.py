@@ -36,8 +36,8 @@ class EksCluster(cdk.Stack):
             'VPC',
             # region=env.region,
             region=environment.region,
-            # vpc_name='VPC')
-            vpc_name='CdkEksPipelineBlueprintStack/VpcDev/VpcStage/VPC')
+            vpc_name='VPC')
+            # vpc_name='CdkEksPipelineBlueprintStack/VpcDev/VpcStage/VPC')
 
         print(f'-----------EksCluster Stack from_lookup() construct_id={construct_id}')
         print(f'-----------EksCluster Stack from_lookup() vpc.vpc_id={vpc.vpc_id}')
@@ -55,18 +55,29 @@ class EksCluster(cdk.Stack):
         #     assumed_by=aws_iam.AccountRootPrincipal()
         # )
         # TODO error???
+        # eks_cluster_admin_role = aws_iam.Role(
+        #     scope=self,
+        #     id="EksClusterRoleAdmin",
+        #     role_name='EksClusterRoleAdmin',
+        #     assumed_by=aws_iam.CompositePrincipal(
+        #         aws_iam.ServicePrincipal(service='eks.amazonaws.com'),
+        #         aws_iam.ServicePrincipal(service='arn:aws:iam::{}:root'.format(environment.account_id))),
+        #     managed_policies=[
+        #         aws_iam.ManagedPolicy.from_aws_managed_policy_name(managed_policy_name='AdministratorAccess'),
+        #         aws_iam.ManagedPolicy.from_aws_managed_policy_name(managed_policy_name='AmazonEKSClusterPolicy'),
+        #         aws_iam.ManagedPolicy.from_aws_managed_policy_name(managed_policy_name='AmazonEKSServicePolicy')]
+        # )
         eks_cluster_admin_role = aws_iam.Role(
             scope=self,
             id="EksClusterRoleAdmin",
             role_name='EksClusterRoleAdmin',
-            assumed_by=aws_iam.CompositePrincipal(
-                aws_iam.ServicePrincipal(service='eks.amazonaws.com'),
-                aws_iam.ServicePrincipal(service='arn:aws:iam::{}:root'.format(environment.account_id))),
+            assumed_by=aws_iam.ServicePrincipal(service='eks.amazonaws.com'),
             managed_policies=[
                 aws_iam.ManagedPolicy.from_aws_managed_policy_name(managed_policy_name='AdministratorAccess'),
                 aws_iam.ManagedPolicy.from_aws_managed_policy_name(managed_policy_name='AmazonEKSClusterPolicy'),
                 aws_iam.ManagedPolicy.from_aws_managed_policy_name(managed_policy_name='AmazonEKSServicePolicy')]
         )
+
 
         # Creating Cluster with EKS
         self.cluster = aws_eks.Cluster(
