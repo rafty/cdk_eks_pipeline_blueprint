@@ -36,7 +36,7 @@ class EksCluster(cdk.Stack):
             'VPC',
             # region=env.region,
             region=environment.region,
-            vpc_name='VPC')
+            vpc_name='VpcStage/VPC')
             # vpc_name='CdkEksPipelineBlueprintStack/VpcDev/VpcStage/VPC')
 
         print(f'-----------EksCluster Stack from_lookup() construct_id={construct_id}')
