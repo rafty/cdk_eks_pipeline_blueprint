@@ -3,7 +3,7 @@ from aws_cdk.pipelines import CodePipeline
 from aws_cdk.pipelines import CodePipelineSource
 from aws_cdk.pipelines import ShellStep
 from aws_cdk import aws_ec2
-# from stages.vpc_stage import VpcStage
+from stages.vpc_stage import VpcStage
 from stages.eks_cluster_stage import EksClusterStage
 
 
@@ -14,7 +14,7 @@ class CdkEksPipelineBlueprintStack(cdk.Stack):
     def __init__(self,
                  scope: cdk.Construct,
                  construct_id: str,
-                 vpc: aws_ec2.Vpc,
+                 # vpc: aws_ec2.Vpc,
                  # env: cdk.Environment,
                  **kwargs) -> None:
 
@@ -53,19 +53,17 @@ class CdkEksPipelineBlueprintStack(cdk.Stack):
             ),
         )
 
-        # # ----------------------------------------
-        # # VPC Stage
-        # # ----------------------------------------
-        # vpc_dev_stage = VpcStage(scope=self, construct_id='VpcDev')
-        # pipeline.add_stage(vpc_dev_stage)
-        # # TODO これをstageからappのstackに移動し、dev/stage/prodを作成する。
+        # ----------------------------------------
+        # VPC Stage
+        # ----------------------------------------
+        vpc_dev_stage = VpcStage(scope=self, construct_id='VpcDev')
+        pipeline.add_stage(vpc_dev_stage)
 
         # ----------------------------------------
         # EKS Cluster Stage
         # ----------------------------------------
         eks_cluster_dev_stage = EksClusterStage(
             scope=self,
-            construct_id='EksClusterDev',
-            vpc=vpc
+            construct_id='EksClusterDev'
         )
         pipeline.add_stage(eks_cluster_dev_stage)

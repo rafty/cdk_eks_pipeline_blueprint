@@ -18,12 +18,12 @@ env = Env()
 #     )
 # )
 
-vpc_stack = Vpc(scope=app,
-                construct_id='VpcAppStack',
-                env=cdk.Environment(
-                    account=env.account_id,
-                    region=env.region)
-                )
+# vpc_stack = Vpc(scope=app,
+#                 construct_id='VpcAppStack',
+#                 env=cdk.Environment(
+#                     account=env.account_id,
+#                     region=env.region)
+#                 )
 
 CdkEksPipelineBlueprintStack(
     scope=app,
@@ -32,7 +32,7 @@ CdkEksPipelineBlueprintStack(
         account=env.account_id,
         region=env.region
     ),
-    vpc=vpc_stack.vpc
+    # vpc=vpc_stack.vpc
 )
 
 app.synth()
