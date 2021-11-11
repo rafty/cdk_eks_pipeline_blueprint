@@ -8,7 +8,7 @@ class Vpc(cdk.Stack):
             self,
             scope: cdk.Construct,
             construct_id: str,
-            env: cdk.Environment,
+            # env: cdk.Environment,
             **kwargs
     ) -> None:
 
