@@ -10,9 +10,24 @@ class EksClusterStage(cdk.Stage):
                  scope: cdk.Construct,
                  construct_id: str,  # EksClusterDev/EksClusterStage/EksClusterProd
                  # vpc: aws_ec2.Vpc,
+                 env: cdk.Environment,
                  **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
         print(f'-----------EksClusterStage construct_id={construct_id}')
 
-        app_stack = EksCluster(self, 'EksClusterStage')
+        # app_stack = EksCluster(self, 'EksClusterStage')
+        # app_stack = EksCluster(self, f'{construct_id}Stage')
+        app_stack = EksCluster(
+            self,
+            f'{construct_id}Stage',
+            env=env
+        )
+        # app_stack = EksCluster(
+        #     self,
+        #     f'{construct_id}Stage',
+        #     env=cdk.Environment(
+        #         account=env.account_id,
+        #         region=env.region
+        #     ),
+        # )

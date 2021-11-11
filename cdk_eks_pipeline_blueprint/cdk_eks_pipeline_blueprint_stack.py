@@ -15,7 +15,7 @@ class CdkEksPipelineBlueprintStack(cdk.Stack):
                  scope: cdk.Construct,
                  construct_id: str,
                  # vpc: aws_ec2.Vpc,
-                 # env: cdk.Environment,
+                 env: cdk.Environment,
                  **kwargs) -> None:
 
         super().__init__(scope, construct_id, **kwargs)
@@ -64,6 +64,7 @@ class CdkEksPipelineBlueprintStack(cdk.Stack):
         # ----------------------------------------
         eks_cluster_dev_stage = EksClusterStage(
             scope=self,
-            construct_id='EksClusterDev'
+            construct_id='EksClusterDev',
+            env=env
         )
         pipeline.add_stage(eks_cluster_dev_stage)
