@@ -52,6 +52,10 @@ class Vpc(cdk.Stack):
         return self._vpc
 
     @property
+    def private_subnets(self):
+        return self._vpc.private_subnets
+
+    @property
     def vpc_public_subnet_ids(self):
         return self._vpc.select_subnets(
             subnet_type=aws_ec2.SubnetType.PUBLIC

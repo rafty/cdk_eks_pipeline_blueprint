@@ -79,7 +79,7 @@ class EksCluster(cdk.Stack):
             output_cluster_name=True,
             version=aws_eks.KubernetesVersion.V1_21,
             endpoint_access=aws_eks.EndpointAccess.PUBLIC,
-            vpc=vpc,  # from_lookupがまだ使えないかも。なので
+            vpc=vpc.vpc,  # from_lookupがまだ使えないかも。なので
             # vpc='vpc-0be974edc7bd76d12',
             ### SubnetSelectionで取れない模様
             # vpc_subnets=[
