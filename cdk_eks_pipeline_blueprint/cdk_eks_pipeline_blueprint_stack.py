@@ -29,6 +29,9 @@ class CdkEksPipelineBlueprintStack(cdk.Stack):
 
         super().__init__(scope, construct_id, **kwargs)
 
+        print(f'%%%%%%%%%%%% CdkEksPipelineBlueprintStack - account: {env.account}, region: {env.region}')
+
+
         # ----------------------------------------
         # Source
         # ----------------------------------------

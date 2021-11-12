@@ -31,6 +31,9 @@ app = cdk.App()
 #                     region=env.region)
 #                 )
 
+print(f'%%%%%%%%%%%% app - account: {env.account}, region: {env.region}')
+
+
 CdkEksPipelineBlueprintStack(
     scope=app,
     construct_id="CdkEksPipelineBlueprintStack",

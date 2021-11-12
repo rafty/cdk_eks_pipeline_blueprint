@@ -44,6 +44,7 @@ class EksCluster(cdk.Stack):
                  **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
+        print(f'%%%%%%%%%%%% EksCluster - account: {env.account}, region: {env.region}')
         print(f'-----------EksCluster Stack construct_id={construct_id}')
 
         # Import our existing VPC whose name is EKSClusterStack/VPC
@@ -64,8 +65,8 @@ class EksCluster(cdk.Stack):
             # region=env.region,
             # region=environment.region,
             region=env.region,
-            vpc_name='VpcStage/VPC')
-            # vpc_name='CdkEksPipelineBlueprintStack/VpcDev/VpcStage/VPC')
+            # vpc_name='VpcStage/VPC')
+            vpc_name='CdkEksPipelineBlueprintStack/VpcDev/VpcStage/VPC')
 
         print(f'-----------EksCluster Stack from_lookup() construct_id={construct_id}')
         print(f'-----------EksCluster Stack from_lookup() vpc.vpc_id={vpc.vpc_id}')

@@ -8,11 +8,13 @@ class Vpc(cdk.Stack):
             self,
             scope: cdk.Construct,
             construct_id: str,
-            # env: cdk.Environment,
+            env: cdk.Environment,
             **kwargs
     ) -> None:
 
         super().__init__(scope, construct_id, **kwargs)
+
+        print(f'%%%%%%%%%%%% Vpc - account: {env.account}, region: {env.region}')
 
         self._vpc = aws_ec2.Vpc(
             scope=self,

@@ -23,6 +23,7 @@ class EksClusterStage(cdk.Stage):
                  **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
+        print(f'%%%%%%%%%%%% EksClusterStage - account: {env.account}, region: {env.region}')
         print(f'-----------EksClusterStage construct_id={construct_id}')
 
         # app_stack = EksCluster(self, 'EksClusterStage')
