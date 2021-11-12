@@ -68,8 +68,9 @@ class CdkEksPipelineBlueprintStack(cdk.Stack):
         # ----------------------------------------
         # VPC Stage
         # ----------------------------------------
-        vpc_dev_stage = VpcStage(scope=self, construct_id='VpcDev', env=env)
-        pipeline.add_stage(vpc_dev_stage)
+        ### EKS Cluster作成時、from_lookupが動作しないためこのステージをClusterのステージで行う。
+        # vpc_dev_stage = VpcStage(scope=self, construct_id='VpcDev', env=env)
+        # pipeline.add_stage(vpc_dev_stage)
 
         # ----------------------------------------
         # EKS Cluster Stage
