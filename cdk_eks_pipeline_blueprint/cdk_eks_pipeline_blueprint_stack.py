@@ -72,16 +72,18 @@ class CdkEksPipelineBlueprintStack(cdk.Stack):
         # vpc_dev_stage = VpcStage(scope=self, construct_id='VpcDev', env=env)
         # pipeline.add_stage(vpc_dev_stage)
 
-        # ----------------------------------------
-        # EKS Cluster Stage
-        # ----------------------------------------
-        eks_cluster_dev_stage = EksClusterStage(
-            scope=self,
-            construct_id='EksClusterDev',
-            # env=cdk.Environment(
-            #     account=environment.account_id,
-            #     region=environment.region
-            # ),
-            env=env
-        )
-        pipeline.add_stage(eks_cluster_dev_stage)
+
+        ## Pipelineを作ったあとにStageを挿入する。
+        # # ----------------------------------------
+        # # EKS Cluster Stage
+        # # ----------------------------------------
+        # eks_cluster_dev_stage = EksClusterStage(
+        #     scope=self,
+        #     construct_id='EksClusterDev',
+        #     # env=cdk.Environment(
+        #     #     account=environment.account_id,
+        #     #     region=environment.region
+        #     # ),
+        #     env=env
+        # )
+        # pipeline.add_stage(eks_cluster_dev_stage)
