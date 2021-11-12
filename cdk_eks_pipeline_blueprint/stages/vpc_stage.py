@@ -14,4 +14,4 @@ class VpcStage(cdk.Stage):
         print(f'%%%%%%%%%%%% VpcStage - account: {env.account}, region: {env.region}')
         print(f'-----------MyAppStage construct_id={construct_id}')
 
-        app_stack = Vpc(self, 'VpcStage')
+        app_stack = Vpc(self, 'VpcStage', env=env)
