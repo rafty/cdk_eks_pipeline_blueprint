@@ -61,8 +61,8 @@ class EksCluster(cdk.Stack):
 
         vpc = aws_ec2.Vpc.from_lookup(
             self,
-            # 'ClusterVPC',
-            'VPC',
+            'EksClusterVPC',
+            # 'VPC',
             # region=env.region,
             # region=environment.region,
             vpc_id='vpc-0be974edc7bd76d12')
