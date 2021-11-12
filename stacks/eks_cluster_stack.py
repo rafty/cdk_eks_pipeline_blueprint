@@ -61,11 +61,13 @@ class EksCluster(cdk.Stack):
 
         vpc = aws_ec2.Vpc.from_lookup(
             self,
+            # 'ClusterVPC',
             'VPC',
             # region=env.region,
             # region=environment.region,
+            vpc_id='vpc-0be974edc7bd76d12')
             # vpc_name='VpcStage/VPC')
-            vpc_name='CdkEksPipelineBlueprintStack/VpcDev/VpcStage/VPC')
+            # vpc_name='CdkEksPipelineBlueprintStack/VpcDev/VpcStage/VPC')
 
         print(f'-----------EksCluster Stack from_lookup() vpc.vpc_id={vpc.vpc_id}')
 
