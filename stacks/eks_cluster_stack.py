@@ -2,36 +2,6 @@ from aws_cdk import core as cdk
 from aws_cdk import aws_iam
 from aws_cdk import aws_eks
 from aws_cdk import aws_ec2
-from environment import Environment
-
-# environment = Environment()
-
-"""
-[Container] 2021/11/11 15:59:32 Running command cdk synth
------------MyAppStage construct_id=VpcDev
------------EksClusterStage construct_id=EksClusterDev
------------EksCluster Stack construct_id=EksClusterDevStage
------------EksCluster Stack from_lookup() construct_id=EksClusterDevStage
------------EksCluster Stack from_lookup() vpc.vpc_id=vpc-12345
-
-current credentials could not be used to assume 'arn:aws:iam::338456725408:role/cdk-hnb659fds-lookup-role-338456725408-ap-northeast-1', 
-but are for the right account. Proceeding anyway.
-"""
-# TODO lookup-role がおかしい lookupを vpc id 直打ちしてみる。
-# TODO 2 Clousterをコメントアウトしてみる。　他にvpcを取得する方法は無いのか？
-"""
------------MyAppStage construct_id=VpcDev
------------EksClusterStage construct_id=EksClusterDev
------------EksCluster Stack construct_id=EksClusterDevStage
------------EksCluster Stack from_lookup() construct_id=EksClusterDevStage
------------EksCluster Stack from_lookup() vpc.vpc_id=vpc-12345
-[Error at /CdkEksPipelineBlueprintStack/EksClusterDev/EksClusterDevStage] You are not authorized to perform this operation.
-[Warning at /CdkEksPipelineBlueprintStack/EksClusterDev/EksClusterDevStage/EksCluster] Could not auto-tag private subnet p-12345 with "kubernetes.io/role/internal-elb=1", please remember to do this manually
-[Warning at /CdkEksPipelineBlueprintStack/EksClusterDev/EksClusterDevStage/EksCluster] Could not auto-tag private subnet p-67890 with "kubernetes.io/role/internal-elb=1", please remember to do this manually
-[Warning at /CdkEksPipelineBlueprintStack/EksClusterDev/EksClusterDevStage/EksCluster] Could not auto-tag public subnet s-12345 with "kubernetes.io/role/elb=1", please remember to do this manually
-[Warning at /CdkEksPipelineBlueprintStack/EksClusterDev/EksClusterDevStage/EksCluster] Could not auto-tag public subnet s-67890 with "kubernetes.io/role/elb=1", please remember to do this manually
-Found errors
-"""
 
 
 class EksCluster(cdk.Stack):
@@ -55,9 +25,16 @@ class EksCluster(cdk.Stack):
         # cdk_eks_kubectlRoleArn = cdk.Fn.import_value("cdkEksKubectlRoleArn")
         # cdk_eks_securityGroupId = cdk.Fn.import_value("cdkEksSgId")
         # cdk_eks_oidcProviderArn = cdk.Fn.import_value("cdkEksOidcProviderARN")
-        #
-        # vpc = aws_ec2.Vpc.from_vpc_attributes(
-        #     self, "{}-vpc".format(construct_id), vpc_id=cdk_eks_vpcId, availability_zones=cdk_eks_vpcAz)
+
+        vpc = aws_ec2.Vpc.from_vpc_attributes(
+            self,
+            "EksClusterVPC",
+            vpc_id='vpc-0be974edc7bd76d12',
+            availability_zones=['ap-northeast-1a', 'ap-northeast-1c'])
+        print(f'----------------from_lookup - vpc.vpc_id: {vpc.vpc_id}')
+
+        ### ここでVPCをつくる？
+
 
         # vpc = aws_ec2.Vpc.from_lookup(
         #     self,
@@ -117,8 +94,8 @@ class EksCluster(cdk.Stack):
             output_cluster_name=True,
             version=aws_eks.KubernetesVersion.V1_21,
             endpoint_access=aws_eks.EndpointAccess.PUBLIC,
-            # vpc=vpc, # from_lookupがまだ使えないかも。なので
-            vpc='vpc-0be974edc7bd76d12',
+            vpc=vpc,  # from_lookupがまだ使えないかも。なので
+            # vpc='vpc-0be974edc7bd76d12',
             vpc_subnets=[
                 # aws_ec2.SubnetSelection(
                 #     subnet_type=aws_ec2.SubnetType.PUBLIC),
