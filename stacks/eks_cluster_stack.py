@@ -81,12 +81,13 @@ class EksCluster(cdk.Stack):
             endpoint_access=aws_eks.EndpointAccess.PUBLIC,
             vpc=vpc,  # from_lookupがまだ使えないかも。なので
             # vpc='vpc-0be974edc7bd76d12',
-            vpc_subnets=[
-                # aws_ec2.SubnetSelection(
-                #     subnet_type=aws_ec2.SubnetType.PUBLIC),
-                aws_ec2.SubnetSelection(
-                    subnet_type=aws_ec2.SubnetType.PRIVATE)
-            ],
+            ### SubnetSelectionで取れない模様
+            # vpc_subnets=[
+            #     # aws_ec2.SubnetSelection(
+            #     #     subnet_type=aws_ec2.SubnetType.PUBLIC),
+            #     aws_ec2.SubnetSelection(
+            #         subnet_type=aws_ec2.SubnetType.PRIVATE)
+            # ],
             masters_role=owner_role,
             # masters_role=eks_cluster_admin_role,
             # default_capacity=2,
