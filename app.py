@@ -2,7 +2,6 @@
 import os
 from aws_cdk import core as cdk
 from cdk_eks_pipeline_blueprint.cdk_eks_pipeline_blueprint_stack import CdkEksPipelineBlueprintStack
-from environment import Environment
 from infra_stacks import vpc_stack
 from infra_stacks.vpc_stack import Vpc
 
