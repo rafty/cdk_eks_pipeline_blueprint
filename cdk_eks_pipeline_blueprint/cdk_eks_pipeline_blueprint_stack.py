@@ -1,3 +1,4 @@
+import os
 from aws_cdk import core as cdk
 from aws_cdk.pipelines import CodePipeline
 from aws_cdk.pipelines import CodePipelineSource
@@ -8,7 +9,11 @@ from stages.eks_cluster_stage import EksClusterStage
 from environment import Environment
 
 
-environment = Environment()
+# environment = Environment()
+# env = cdk.Environment(
+#     account=os.environ.get("CDK_DEPLOY_ACCOUNT", os.environ["CDK_DEFAULT_ACCOUNT"]),
+#     region=os.environ.get("CDK_DEPLOY_REGION", os.environ["CDK_DEFAULT_REGION"]),
+# )
 
 
 class CdkEksPipelineBlueprintStack(cdk.Stack):
@@ -19,7 +24,7 @@ class CdkEksPipelineBlueprintStack(cdk.Stack):
                  scope: cdk.Construct,
                  construct_id: str,
                  # vpc: aws_ec2.Vpc,
-                 # env: cdk.Environment,
+                 env: cdk.Environment,
                  **kwargs) -> None:
 
         super().__init__(scope, construct_id, **kwargs)
@@ -54,13 +59,13 @@ class CdkEksPipelineBlueprintStack(cdk.Stack):
                     'python -m pip install -r requirements.txt',
                     'cdk synth'
                 ],
-            ),
+            )
         )
 
         # ----------------------------------------
         # VPC Stage
         # ----------------------------------------
-        vpc_dev_stage = VpcStage(scope=self, construct_id='VpcDev')
+        vpc_dev_stage = VpcStage(scope=self, construct_id='VpcDev', env=env)
         pipeline.add_stage(vpc_dev_stage)
 
         # ----------------------------------------
@@ -69,9 +74,10 @@ class CdkEksPipelineBlueprintStack(cdk.Stack):
         eks_cluster_dev_stage = EksClusterStage(
             scope=self,
             construct_id='EksClusterDev',
-            env=cdk.Environment(
-                account=environment.account_id,
-                region=environment.region
-            ),
+            # env=cdk.Environment(
+            #     account=environment.account_id,
+            #     region=environment.region
+            # ),
+            env=env
         )
         pipeline.add_stage(eks_cluster_dev_stage)

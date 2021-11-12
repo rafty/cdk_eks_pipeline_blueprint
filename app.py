@@ -1,13 +1,19 @@
 #!/usr/bin/env python3
+import os
 from aws_cdk import core as cdk
 from cdk_eks_pipeline_blueprint.cdk_eks_pipeline_blueprint_stack import CdkEksPipelineBlueprintStack
 from environment import Environment
 from stacks import vpc_stack
 from stacks.vpc_stack import Vpc
 
+env = cdk.Environment(
+    account=os.environ.get("CDK_DEPLOY_ACCOUNT", os.environ["CDK_DEFAULT_ACCOUNT"]),
+    region=os.environ.get("CDK_DEPLOY_REGION", os.environ["CDK_DEFAULT_REGION"]),
+)
 
 app = cdk.App()
-environment = Environment()
+
+# environment = Environment()
 
 # vpc_stack = vpc.Vpc(
 #     scope=app,
@@ -28,10 +34,11 @@ environment = Environment()
 CdkEksPipelineBlueprintStack(
     scope=app,
     construct_id="CdkEksPipelineBlueprintStack",
-    env=cdk.Environment(
-        account=environment.account_id,
-        region=environment.region
-    ),
+    env=env
+    # env=cdk.Environment(
+    #     account=environment.account_id,
+    #     region=environment.region
+    # ),
     # vpc=vpc_stack.vpc
 )
 

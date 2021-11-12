@@ -4,7 +4,7 @@ from aws_cdk import aws_eks
 from aws_cdk import aws_ec2
 from environment import Environment
 
-environment = Environment()
+# environment = Environment()
 
 """
 [Container] 2021/11/11 15:59:32 Running command cdk synth
@@ -16,7 +16,10 @@ environment = Environment()
 
 current credentials could not be used to assume 'arn:aws:iam::338456725408:role/cdk-hnb659fds-lookup-role-338456725408-ap-northeast-1', 
 but are for the right account. Proceeding anyway.
-
+"""
+# TODO lookup-role がおかしい lookupを vpc id 直打ちしてみる。
+# TODO 2 Clousterをコメントアウトしてみる。　他にvpcを取得する方法は無いのか？
+"""
 -----------MyAppStage construct_id=VpcDev
 -----------EksClusterStage construct_id=EksClusterDev
 -----------EksCluster Stack construct_id=EksClusterDevStage
@@ -31,14 +34,13 @@ Found errors
 """
 
 
-
 class EksCluster(cdk.Stack):
 
     def __init__(self,
                  scope: cdk.Construct,
                  construct_id: str,
                  # vpc: aws_ec2.Vpc,
-                 # env: cdk.Environment,
+                 env: cdk.Environment,
                  **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
@@ -60,7 +62,8 @@ class EksCluster(cdk.Stack):
             self,
             'VPC',
             # region=env.region,
-            region=environment.region,
+            # region=environment.region,
+            region=env.region,
             vpc_name='VpcStage/VPC')
             # vpc_name='CdkEksPipelineBlueprintStack/VpcDev/VpcStage/VPC')
 
