@@ -59,17 +59,17 @@ class EksCluster(cdk.Stack):
         # vpc = aws_ec2.Vpc.from_vpc_attributes(
         #     self, "{}-vpc".format(construct_id), vpc_id=cdk_eks_vpcId, availability_zones=cdk_eks_vpcAz)
 
-        vpc = aws_ec2.Vpc.from_lookup(
-            self,
-            'EksClusterVPC',
-            # 'VPC',
-            # region=env.region,
-            # region=environment.region,
-            vpc_id='vpc-0be974edc7bd76d12')
-            # vpc_name='VpcStage/VPC')
-            # vpc_name='CdkEksPipelineBlueprintStack/VpcDev/VpcStage/VPC')
+        # vpc = aws_ec2.Vpc.from_lookup(
+        #     self,
+        #     'EksClusterVPC',
+        #     # 'VPC',
+        #     # region=env.region,
+        #     # region=environment.region,
+        #     vpc_id='vpc-0be974edc7bd76d12')
+        #     # vpc_name='VpcStage/VPC')
+        #     # vpc_name='CdkEksPipelineBlueprintStack/VpcDev/VpcStage/VPC')
 
-        print(f'-----------EksCluster Stack from_lookup() vpc.vpc_id={vpc.vpc_id}')
+        # print(f'-----------EksCluster Stack from_lookup() vpc.vpc_id={vpc.vpc_id}')
 
         # vpc_id = cdk.Fn.import_value('eks-cluster-vpc-id')
         # # print(f'----------------vpc_id: {vpc_id}')
@@ -117,7 +117,8 @@ class EksCluster(cdk.Stack):
             output_cluster_name=True,
             version=aws_eks.KubernetesVersion.V1_21,
             endpoint_access=aws_eks.EndpointAccess.PUBLIC,
-            vpc=vpc,
+            # vpc=vpc, # from_lookupがまだ使えないかも。なので
+            vpc='vpc-0be974edc7bd76d12',
             vpc_subnets=[
                 # aws_ec2.SubnetSelection(
                 #     subnet_type=aws_ec2.SubnetType.PUBLIC),
