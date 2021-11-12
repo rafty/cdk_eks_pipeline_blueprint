@@ -3,11 +3,8 @@ from aws_cdk import core as cdk
 from aws_cdk.pipelines import CodePipeline
 from aws_cdk.pipelines import CodePipelineSource
 from aws_cdk.pipelines import ShellStep
-from aws_cdk import aws_ec2
-from stages.vpc_stage import VpcStage
 from stages.eks_cluster_stage import EksClusterStage
-from environment import Environment
-
+from stages.container_stage import ContainerStage
 
 # environment = Environment()
 # env = cdk.Environment(
@@ -80,10 +77,19 @@ class CdkEksPipelineBlueprintStack(cdk.Stack):
         eks_cluster_dev_stage = EksClusterStage(
             scope=self,
             construct_id='EksClusterDev',
-            # env=cdk.Environment(
-            #     account=environment.account_id,
-            #     region=environment.region
-            # ),
             env=env
         )
         pipeline.add_stage(eks_cluster_dev_stage)
+
+        cluster = eks_cluster_dev_stage.cluster
+
+        # # ----------------------------------------
+        # # Container Stage
+        # # ----------------------------------------
+        # container_stage = ContainerStage(
+        #     scope=self,
+        #     construct_id='ContainerStage',
+        #     cluster=cluster,
+        #     env=env
+        # )
+        # pipeline.add_stage(container_stage)

@@ -3,8 +3,8 @@ import os
 from aws_cdk import core as cdk
 from cdk_eks_pipeline_blueprint.cdk_eks_pipeline_blueprint_stack import CdkEksPipelineBlueprintStack
 from environment import Environment
-from stacks import vpc_stack
-from stacks.vpc_stack import Vpc
+from infra_stacks import vpc_stack
+from infra_stacks.vpc_stack import Vpc
 
 env = cdk.Environment(
     account=os.environ.get("CDK_DEPLOY_ACCOUNT", os.environ["CDK_DEFAULT_ACCOUNT"]),

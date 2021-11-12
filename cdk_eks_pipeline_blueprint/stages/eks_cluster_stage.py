@@ -1,16 +1,5 @@
-import os
 from aws_cdk import core as cdk
-# from stacks.vpc_stack import Vpc
-from stacks.eks_cluster_stack import EksCluster
-from aws_cdk import aws_ec2
-from environment import Environment
-
-# environment = Environment()
-
-# env = cdk.Environment(
-#     account=os.environ.get("CDK_DEPLOY_ACCOUNT", os.environ["CDK_DEFAULT_ACCOUNT"]),
-#     region=os.environ.get("CDK_DEPLOY_REGION", os.environ["CDK_DEFAULT_REGION"]),
-# )
+from infra_stacks.eks_cluster_stack import EksCluster
 
 
 class EksClusterStage(cdk.Stage):
@@ -24,24 +13,16 @@ class EksClusterStage(cdk.Stage):
         super().__init__(scope, construct_id, **kwargs)
 
         print(f'%%%%%%%%%%%% EksClusterStage - account: {env.account}, region: {env.region}')
-        print(f'-----------EksClusterStage construct_id={construct_id}')
 
-        # app_stack = EksCluster(self, 'EksClusterStage')
-        # app_stack = EksCluster(self, f'{construct_id}Stage')
-        app_stack = EksCluster(
+        eks_cluster_stack = EksCluster(
             self,
             f'{construct_id}Stage',
             env=env
-            # env=cdk.Environment(
-            #     account=environment.account_id,
-            #     region=environment.region
-            # )
         )
-        # app_stack = EksCluster(
-        #     self,
-        #     f'{construct_id}Stage',
-        #     env=cdk.Environment(
-        #         account=env.account_id,
-        #         region=env.region
-        #     ),
-        # )
+
+        self._cluster = eks_cluster_stack.cluster
+
+    @property
+    def cluster(self):
+        return self._cluster
+

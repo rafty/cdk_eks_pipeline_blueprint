@@ -1,5 +1,5 @@
 from aws_cdk import core as cdk
-from stacks.vpc_stack import Vpc
+from infra_stacks.vpc_stack import Vpc
 
 
 class VpcStage(cdk.Stage):
