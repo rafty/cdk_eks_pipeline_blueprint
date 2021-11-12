@@ -64,7 +64,6 @@ class EksCluster(cdk.Stack):
             'VPC',
             # region=env.region,
             # region=environment.region,
-            region=env.region,
             # vpc_name='VpcStage/VPC')
             vpc_name='CdkEksPipelineBlueprintStack/VpcDev/VpcStage/VPC')
 
