@@ -8,6 +8,7 @@ class ContainerStack(cdk.Stack):
     def __init__(self,
                  scope: cdk.Construct,
                  construct_id: str,
+                 env: cdk.Environment,
                  cluster: aws_eks.Cluster,  # add parameter
                  **kwargs) -> None:
 

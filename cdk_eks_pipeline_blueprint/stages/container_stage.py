@@ -19,6 +19,6 @@ class ContainerStage(cdk.Stage):
         ContainerStack(
             self,
             'ContainerStage',
-            cluster,
-            env=env
+            env=env,
+            cluster=cluster
         )
