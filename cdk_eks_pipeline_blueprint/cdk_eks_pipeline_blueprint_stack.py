@@ -83,13 +83,13 @@ class CdkEksPipelineBlueprintStack(cdk.Stack):
 
         cluster = eks_cluster_dev_stage.cluster
 
-        # # ----------------------------------------
-        # # Container Stage
-        # # ----------------------------------------
-        # container_stage = ContainerStage(
-        #     scope=self,
-        #     construct_id='ContainerStage',
-        #     cluster=cluster,
-        #     env=env
-        # )
-        # pipeline.add_stage(container_stage)
+        # ----------------------------------------
+        # Container Stage
+        # ----------------------------------------
+        container_stage = ContainerStage(
+            scope=self,
+            construct_id='ContainerStage',
+            cluster=cluster,
+            env=env
+        )
+        pipeline.add_stage(container_stage)
