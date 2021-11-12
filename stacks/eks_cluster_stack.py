@@ -67,7 +67,6 @@ class EksCluster(cdk.Stack):
             # vpc_name='VpcStage/VPC')
             vpc_name='CdkEksPipelineBlueprintStack/VpcDev/VpcStage/VPC')
 
-        print(f'-----------EksCluster Stack from_lookup() construct_id={construct_id}')
         print(f'-----------EksCluster Stack from_lookup() vpc.vpc_id={vpc.vpc_id}')
 
         # vpc_id = cdk.Fn.import_value('eks-cluster-vpc-id')
@@ -106,6 +105,7 @@ class EksCluster(cdk.Stack):
                 aws_iam.ManagedPolicy.from_aws_managed_policy_name(managed_policy_name='AmazonEKSServicePolicy')]
         )
 
+        print(f'%%%%%%%%%%%% 222 EksCluster - account: {env.account}, region: {env.region}')
 
         # Creating Cluster with EKS
         self.cluster = aws_eks.Cluster(
