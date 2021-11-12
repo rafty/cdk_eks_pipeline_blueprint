@@ -88,6 +88,7 @@ class EksCluster(cdk.Stack):
             #     aws_ec2.SubnetSelection(
             #         subnet_type=aws_ec2.SubnetType.PRIVATE)
             # ],
+            vpc_subnets=vpc.private_subnets,
             masters_role=owner_role,
             # masters_role=eks_cluster_admin_role,
             # default_capacity=2,
