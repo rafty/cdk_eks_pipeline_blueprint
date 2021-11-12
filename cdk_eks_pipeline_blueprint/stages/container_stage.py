@@ -14,8 +14,6 @@ class ContainerStage(cdk.Stage):
 
         super().__init__(scope, construct_id, **kwargs)
 
-        print(f'%%%%%%%%%%%% ContainerStage - account: {env.account}, region: {env.region}')
-
         ContainerStack(
             self,
             'ContainerStage',

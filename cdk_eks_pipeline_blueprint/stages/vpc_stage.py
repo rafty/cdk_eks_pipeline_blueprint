@@ -11,7 +11,4 @@ class VpcStage(cdk.Stage):
                  **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        print(f'%%%%%%%%%%%% VpcStage - account: {env.account}, region: {env.region}')
-        print(f'-----------MyAppStage construct_id={construct_id}')
-
-        app_stack = Vpc(self, 'VpcStage', env=env)
+        Vpc(self, 'VpcStage', env=env)

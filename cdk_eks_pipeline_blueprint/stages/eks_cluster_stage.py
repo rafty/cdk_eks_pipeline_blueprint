@@ -7,12 +7,9 @@ class EksClusterStage(cdk.Stage):
     def __init__(self,
                  scope: cdk.Construct,
                  construct_id: str,  # EksClusterDev/EksClusterStage/EksClusterProd
-                 # vpc: aws_ec2.Vpc,
                  env: cdk.Environment,
                  **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
-
-        print(f'%%%%%%%%%%%% EksClusterStage - account: {env.account}, region: {env.region}')
 
         eks_cluster_stack = EksCluster(
             self,

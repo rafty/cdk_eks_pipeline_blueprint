@@ -14,14 +14,11 @@ class Vpc(cdk.Stack):
 
         super().__init__(scope, construct_id, **kwargs)
 
-        print(f'%%%%%%%%%%%% Vpc - account: {env.account}, region: {env.region}')
-
         self._vpc = aws_ec2.Vpc(
             scope=self,
             id="VPC",
             max_azs=2,
             cidr="10.10.0.0/16",
-            # configuration will create 3 groups in 2 AZs = 6 subnets.
             subnet_configuration=[
                 aws_ec2.SubnetConfiguration(
                     subnet_type=aws_ec2.SubnetType.PUBLIC,
@@ -40,7 +37,7 @@ class Vpc(cdk.Stack):
             nat_gateways=2,
         )
 
-        # EKS Stackへ渡すため
+        # Not available on Pipeline Stage.
         cdk.CfnOutput(
             scope=self,
             id='eks-cluster-vpc-id',
